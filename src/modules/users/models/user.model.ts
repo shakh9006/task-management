@@ -1,9 +1,17 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
-import { UserCreationAttrs } from '../dto';
-import { UserRoles } from '../../../common/types';
+import {
+  BelongsToMany,
+  Column,
+  DataType,
+  HasMany,
+  Model,
+  Table,
+} from 'sequelize-typescript';
+import { Role } from '../../roles/models/roles.model';
+import { UserRoles } from '../../roles/models/user-roles.model';
+import { Project } from '../../projects/model/project.model';
 
-@Table
-export class User extends Model<User, UserCreationAttrs> {
+@Table({ tableName: 'users' })
+export class User extends Model {
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -12,7 +20,7 @@ export class User extends Model<User, UserCreationAttrs> {
   })
   id: number;
 
-  @Column({ type: DataType.STRING, unique: true, allowNull: false })
+  @Column({ type: DataType.STRING, allowNull: false })
   username: string;
 
   @Column({ type: DataType.STRING, unique: true, allowNull: false })
@@ -21,10 +29,9 @@ export class User extends Model<User, UserCreationAttrs> {
   @Column({ type: DataType.STRING, allowNull: false })
   password: string;
 
-  @Column({
-    type: DataType.ENUM('user', 'admin'),
-    allowNull: false,
-    defaultValue: 'user',
-  })
-  role: UserRoles;
+  @BelongsToMany(() => Role, () => UserRoles)
+  roles: Role[];
+
+  @HasMany(() => Project)
+  projects: Project[];
 }
