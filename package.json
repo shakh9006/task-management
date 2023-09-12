@@ -17,7 +17,10 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "db:create": "npx sequelize-cli db:create",
+    "db:seed:roles": "npx sequelize-cli db:seed:default-roles",
+    "db:seed:super": "npx sequelize-cli db:seed:create-super-user"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
@@ -28,12 +31,14 @@
     "@nestjs/sequelize": "^10.0.0",
     "bcryptjs": "^2.4.3",
     "cross-env": "^7.0.3",
+    "moment": "^2.29.4",
     "pg": "^8.11.3",
     "pg-hstore": "^2.3.4",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^5.0.1",
     "rxjs": "^7.2.0",
     "sequelize": "^6.33.0",
+    "sequelize-cli": "^6.6.1",
     "sequelize-typescript": "^2.1.5",
     "uuid": "^9.0.0"
   },

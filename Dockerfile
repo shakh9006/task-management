@@ -6,8 +6,10 @@ COPY package*.json ./
 
 RUN npm install
 
-COPY ../../ ./
+COPY ./ ./
 
 RUN npm run build
 
+CMD ["npm", "run", "db:seed:roles"]
+CMD ["npm", "run", "db:seed:super"]
 CMD ["npm", "run", "start:dev"]

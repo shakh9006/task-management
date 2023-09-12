@@ -43,7 +43,7 @@ export class AuthService {
 
   async login(data: LoginInput): Promise<UserOutput> {
     const user = await this.userService.findUserByEmail(data.email);
-    const passwordCompare = await bcrypt.compare(data.password, user.password);
+    const passwordCompare = await bcrypt.compare(data.password, user?.password);
 
     if (!user || !passwordCompare) {
       throw new UnauthorizedException({
